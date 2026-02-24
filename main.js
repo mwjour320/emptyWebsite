@@ -1,3 +1,4 @@
+/* add code for progress bar so as user scrolls the progress bar increases in size*/
 window.addEventListener("scroll", function () {
     const scrollTop = window.scrollY;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -7,7 +8,7 @@ window.addEventListener("scroll", function () {
     progressBar.style.height = (scrollPercent * maxBarHeight) + "px";
 });
 
-/*SCROLLAMA JAVA CODE*/
+/*scrollama code */
 
         /* initialize variables */
         var container = d3.select("#scroll");
@@ -28,7 +29,7 @@ window.addEventListener("scroll", function () {
             scroller.resize();
         }
 
-        /* create array of media objects for each step's media element */
+        /* create array of media objects for each step's media element, minus the first one since it's a youtube video */
         var media = [
             {
                 type: "img",
@@ -48,19 +49,19 @@ window.addEventListener("scroll", function () {
         function handleStepEnter(response) {
             step.classed("is-active", (d, i) => i === response.index);
             
-            // do nothing for step 0
+            // do nothing for step 0 since youtube video link is on html page itself
             if (response.index === 0) {
                 d3.select("#scrolly-figure").html(`
                     <img src="white.jpeg" alt="Documentary link"> `);
                     return;
                 }
 
-            //start switching out the figure for steps 1-3
+            //start switching out the figure for steps 1-3, not step 0
             var item = media[response.index - 1];
 
             d3.select("#scrolly-figure").html("");
 
-            // IMAGE
+            // if it's an image, load the image
             if (item.type === "img") {
                 d3.select("#scrolly-figure").html(`
                     <div class="media-box">
